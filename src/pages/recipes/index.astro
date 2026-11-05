@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const recipes = (await getCollection('recipes')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Recipes" description="All recipes in 3032 Recipe Archives.">
+  <section class="page-title">
+    <p class="eyebrow">The archive</p>
+    <h1>All recipes</h1>
+    <p>{recipes.length} recipes and counting.</p>
+  </section>
+
+  <div class="recipe-list">
+    {recipes.map((recipe) => (
+      <article class="recipe-row">
+        <div>
+          <p class="card-meta">{recipe.data.meal} · {recipe.data.prepTime} prep · {recipe.data.cookTime} cook</p>
+          <h2><a href={`${base}recipes/${recipe.slug}/`}>{recipe.data.title}</a></h2>
+          <p>{recipe.data.description}</p>
+        </div>
+        <div class="tag-list">
+          {recipe.data.tags.map((tag) => <a href={`${base}tags/${tag}/`}>{tag}</a>)}
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

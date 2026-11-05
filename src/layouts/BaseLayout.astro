@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'A personal recipe archive.' } = Astro.props;
+const pageTitle = title === '3032 Recipe Archives' ? title : `${title} | 3032 Recipe Archives`;
+const base = import.meta.env.BASE_URL;
+const recipeCount = (await getCollection('recipes')).length;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={base}>
+        <span class="brand-mark">3032</span>
+        <span class="brand-copy">
+          <span class="brand-title">Recipe Archives</span>
+          <span class="brand-count">{recipeCount} {recipeCount === 1 ? 'recipe' : 'recipes'} and counting</span>
+        </span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href={base}>Home</a>
+        <a href={`${base}categories/soups/`}>Soups</a>
+        <a href={`${base}categories/dinner-entrees/`}>Dinner Entrees</a>
+        <a href={`${base}categories/sides/`}>Sides</a>
+        <a href={`${base}categories/breads/`}>Breads</a>
+        <a href={`${base}categories/desserts/`}>Desserts</a>
+        <a href={`${base}categories/fermented-foods/`}>Ferments and Pickles</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
