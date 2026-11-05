@@ -2,6 +2,8 @@
 
 An Astro-powered recipe archive designed for GitHub Pages.
 
+**[Visit 3032 Recipe Archives](https://erikglee.github.io/3032RecipeArchives/)**
+
 ## Local development
 
 ```bash
