@@ -6,5 +6,5 @@ const isUserSite = repo === `${owner}.github.io`;
 
 export default defineConfig({
   site: process.env.SITE_URL ?? (isGitHubPages ? `https://${owner}.github.io` : 'http://localhost:4321'),
-  base: isGitHubPages && !isUserSite ? `/${repo}` : '/',
+  base: isGitHubPages && !isUserSite ? `/${repo}/` : '/',
 });
