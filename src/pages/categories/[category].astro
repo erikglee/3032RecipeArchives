@@ -7,32 +7,26 @@ export async function getStaticPaths() {
   const categories = {
     soups: {
       title: 'Soups',
-      description: 'Brothy bowls, blended comforts, and soups worth making again.',
       matches: (recipe: CollectionEntry<'recipes'>) => recipe.data.tags.includes('soup'),
     },
     'dinner-entrees': {
       title: 'Dinner Entrees',
-      description: 'Main-course recipes for the middle of the table.',
       matches: (recipe: CollectionEntry<'recipes'>) => recipe.data.meal === 'dinner' && !recipe.data.tags.includes('soup'),
     },
     breads: {
       title: 'Breads',
-      description: 'Loaves, doughs, and bakes for the everyday table.',
       matches: (recipe: CollectionEntry<'recipes'>) => recipe.data.meal === 'bread',
     },
     sides: {
       title: 'Sides',
-      description: 'Vegetables, dips, and supporting dishes that round out the table.',
       matches: (recipe: CollectionEntry<'recipes'>) => recipe.data.meal === 'side',
     },
     desserts: {
       title: 'Desserts',
-      description: 'Sweet recipes for sharing, celebrating, and keeping close at hand.',
       matches: (recipe: CollectionEntry<'recipes'>) => recipe.data.meal === 'dessert',
     },
     'fermented-foods': {
       title: 'Ferments and Pickles',
-      description: 'Cultures, pickles, and patient kitchen projects.',
       matches: (recipe: CollectionEntry<'recipes'>) => recipe.data.tags.includes('fermented') || recipe.data.tags.includes('pickles'),
     },
   };
@@ -54,13 +48,12 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   : `${import.meta.env.BASE_URL}/`;
 ---
 
-<BaseLayout title={category.title} description={category.description}>
+<BaseLayout title={category.title} description={`${category.title} recipes.`}>
   <section class="page-title">
     <div>
       <p class="eyebrow">Recipe collection</p>
       <h1>{category.title}</h1>
     </div>
-    <p>{category.description}</p>
   </section>
 
   <div class="recipe-grid">
